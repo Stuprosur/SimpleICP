@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsimpleicp_lib.a  CMakeFiles/simpleicp_lib.dir/src/simpleicp.cpp.o CMakeFiles/simpleicp_lib.dir/src/pointcloud.cpp.o CMakeFiles/simpleicp_lib.dir/src/corrpts.cpp.o
+/usr/bin/ranlib libsimpleicp_lib.a
