@@ -151,14 +151,17 @@ Eigen::Matrix<double, 4, 4> SimpleICP(const Eigen::MatrixXd &X_fix,
   auto start = std::chrono::system_clock::now(); // 记录算法开始时间
 
   printf("Create point cloud objects ...\n");
-  PointCloud pc_fix{X_fix};  // 创建固定点云对象
-  PointCloud pc_mov{X_mov};  // 创建移动点云对象
+  // 创建固定点云对象 【点云坐标矩阵X_、bool向量sel_】
+  PointCloud pc_fix{X_fix};  
+  // 创建移动点云对象 【点云坐标矩阵X_、bool向量sel_】
+  PointCloud pc_mov{X_mov};  
 
   // 处理点云的部分重叠情况
   if (max_overlap_distance > 0)
   {
     printf("Consider partial overlap of point clouds ...\n");
-    pc_fix.SelectInRange(pc_mov.X(), max_overlap_distance); // 在固定点云中选择与移动点云距离小于max_overlap_distance的点
+    // 在固定点云中选择与移动点云距离小于max_overlap_distance的点 【bool向量sel_】
+    pc_fix.SelectInRange(pc_mov.X(), max_overlap_distance); 
     if (pc_fix.GetIdxOfSelectedPts().size() == 0) // 如果没有重叠点，抛出异常
     {
       char buff[200];
@@ -172,11 +175,12 @@ Eigen::Matrix<double, 4, 4> SimpleICP(const Eigen::MatrixXd &X_fix,
   }
 
   printf("Select points for correspondences in fixed point cloud ...\n");
-  pc_fix.SelectNPts(correspondences); // 在固定点云中随机选择指定数量的点用于匹配
+  pc_fix.SelectNPts(correspondences); // 在固定点云中随机选择指定数量的点用于匹配 【bool向量sel_】
 
   printf("Estimate normals of selected points ...\n");
-  pc_fix.EstimateNormals(neighbors); // 为选中的点估计法向量，使用指定数量的邻居点
+  pc_fix.EstimateNormals(neighbors); // 为选中的点估计法向量，使用指定数量的邻居点 【n_x, n_y, n_z, planarity_】
 
+  // ---------------------------------------------Registration-----------------------------------------------
   // 初始化变换矩阵和相关变量
   Eigen::Matrix<double, 4, 4> H_old{Eigen::Matrix<double, 4, 4>::Identity()}; // 上一次的变换矩阵，初始为单位矩阵
   Eigen::Matrix<double, 4, 4> H_new; // 当前迭代的变换矩阵

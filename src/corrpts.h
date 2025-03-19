@@ -6,12 +6,12 @@
 class CorrPts
 {
 public:
-  CorrPts(PointCloud &pc1, PointCloud &pc2);
+  CorrPts(PointCloud &pcF, PointCloud &pcM);
 
-  // Matching of each selected point of pc1 --> nn of selected points of pc2
+  // Matching of each selected point of pcF --> nn of selected points of pcM
   void Match();
 
-  void GetPlanarityFromPc1();
+  void GetPlanarityFrompcF();
 
   void ComputeDists();
 
@@ -20,18 +20,18 @@ public:
   void EstimateRigidBodyTransformation(Eigen::Matrix<double, 4, 4> &H, Eigen::VectorXd &residuals);
 
   // Getters
-  const PointCloud &pc1();
-  const PointCloud &pc2();
-  const std::vector<int> &idx_pc1();
-  const std::vector<int> &idx_pc2();
+  const PointCloud &pcF();
+  const PointCloud &pcM();
+  const std::vector<int> &idx_pcF();
+  const std::vector<int> &idx_pcM();
   const Eigen::VectorXd &dists();
   const Eigen::VectorXd &planarity();
 
 private:
-  PointCloud pc1_;
-  PointCloud pc2_;
-  std::vector<int> idx_pc1_;
-  std::vector<int> idx_pc2_;
+  PointCloud pcF_;
+  PointCloud pcM_;
+  std::vector<int> idx_pcF_;
+  std::vector<int> idx_pcM_;
   Eigen::VectorXd dists_;
   Eigen::VectorXd planarity_;
 };
