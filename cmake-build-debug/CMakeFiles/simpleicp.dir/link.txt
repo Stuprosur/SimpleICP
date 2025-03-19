@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -Wconversion -Wshadow -Wpedantic -fsanitize=undefined,address -g   CMakeFiles/simpleicp.dir/src/simpleicp-cli.cpp.o  -o simpleicp  libsimpleicp_lib.a -lpthread 
