@@ -3,6 +3,8 @@
 /build/
 /cmake-build-debug/
 /.idea/
+
+README_ref.md
 # Prerequisites
 *.d
 
